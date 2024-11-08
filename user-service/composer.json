@@ -1,0 +1,20 @@
+{
+    "name": "blackline/user-service",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Blackline\\UserService\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sumit Kumar",
+            "email": "sumit.k2209@gmail.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "4.10",
+        "slim/psr7": "^1.7",
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
