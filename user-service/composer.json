@@ -3,7 +3,7 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "Blackline\\UserService\\": "src/"
+            "App\\": "app/"
         }
     },
     "authors": [
@@ -15,6 +15,8 @@
     "require": {
         "slim/slim": "4.10",
         "slim/psr7": "^1.7",
-        "vlucas/phpdotenv": "^5.6"
+        "vlucas/phpdotenv": "^5.6",
+        "php-di/php-di": "^7.0",
+        "php-di/slim-bridge": "^3.4"
     }
 }
