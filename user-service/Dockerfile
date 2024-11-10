@@ -1,6 +1,16 @@
 # Use the official PHP image
 FROM php:8.2-cli
 
+
+# Install PHP zip extension
+RUN apt-get update && apt-get install -y \
+    zip \
+    libzip-dev \
+    && docker-php-ext-install zip
+
+# Install other dependencies
+RUN apt-get install -y git unzip
+
 # Set the working directory inside the container
 WORKDIR /var/www/html
 
