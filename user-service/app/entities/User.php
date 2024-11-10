@@ -2,7 +2,8 @@
 
 namespace App\Entities;
 
-class User {
+class User
+{
 
 
     /**
@@ -12,5 +13,45 @@ class User {
      * @param string $name
      * @param string $email
      */
-    public function __construct(public int $userId, public string $name, public string $email) {}
+    public function __construct(private int $userId, private string $name, private string $email)
+    {
+    }
+
+    public function getUserId(): int
+    {
+        return $this->userId;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setUserId(int $userId): void
+    {
+        $this->userId = $userId;
+    }
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            "userId" => $this->userId,
+            "name" => $this->name,
+            "email" => $this->email,
+        ];
+    }
+
 }

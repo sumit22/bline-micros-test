@@ -40,7 +40,7 @@ class ArrayUserRepoitory implements UserRepositoryInterface
     public function findById(int $id): ?User
     {
         foreach ($this->users as $user) {
-            if ($user->userId == $id) {
+            if ($user->getUserId() == $id) {
                 return $user;
             }
         }
