@@ -1,8 +1,8 @@
 ## Project setup and starting
 
-```
-# navigate to project folder and run this command
 
+- navigate to project folder and run this command
+```
 docker compose -f "docker-compose.yml" up -d --build
 
 ```
@@ -29,19 +29,19 @@ curl -i -X POST http://localhost:8001/services/user-service/plugins \
 curl -i -X POST http://localhost:8001/consumers \
   --data "username=user-service-consumer"
 ```
-## setup API KEY, you can pass your own custom static api key
+## Setup API KEY, you can pass your own custom static api key
 
 ```
 curl -i -X POST http://localhost:8001/consumers/user-service-consumer/key-auth \
   --data "key=b63d5a16-c20d-41b5-94d8-3d66a6490c95"
 
-  ```
+```
 
-  ## User Service APIs
+## User Service APIs
 
-pass the apiKey header to access the users/ apis
+- Pass the apiKey header to access the users/ apis
 
-  ```
+```
 curl --location 'http://localhost:8000/user-service/users/' \
 --header 'apiKey: b63d5a16-c20d-41b5-94d8-3d66a6490c95'
 
@@ -49,10 +49,10 @@ curl --location 'http://localhost:8000/user-service/users/' \
 curl --location 'http://localhost:8000/user-service/users/1111' \
 --header 'apiKey: b63d5a16-c20d-41b5-94d8-3d66a6490c95'
 
-  ```
+```
 
 ## Testing the user service
-- navigate to the user-service microservice's root directory 
+- Navigate to the user-service microservice's root directory 
 ```
 > cd user-service
 ```
