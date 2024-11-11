@@ -51,9 +51,8 @@ dist/
 build/
 
 # Ignore PHP-specific files
-phpunit.xml
-phpunit.xml.dist
 php_errors.log
+.phpunit.cache/
 
 # Ignore system-specific files
 Thumbs.db
