@@ -17,13 +17,9 @@ class StaticTokenAuthService implements AuthServiceInterface {
     {
         // Get the Authorization header
         $authHeader = $request->getHeaderLine('Authorization');
-
-        // Check if the header follows the "Bearer <token>" format
         if (preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
             return $matches[1]; // Return the token string
         }
-
-        // Return null if the header is missing or doesn't match the pattern
         return null;
     }
 }

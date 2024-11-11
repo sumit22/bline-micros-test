@@ -17,7 +17,7 @@ class UserService implements UserServiceInterface {
 
     public function getUserById(int $id): ?User
     {
-        //die('id in service :' . $id .'');
+        
         return $this->userRepository->findById($id);
     }
 }
