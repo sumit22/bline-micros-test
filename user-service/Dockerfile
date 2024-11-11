@@ -1,29 +1,44 @@
-# Use the official PHP image
-FROM php:8.2-cli
+# Use an official PHP runtime as a parent image
+FROM php:8.3-fpm
 
-# Install PHP extensions and dependencies
+# Set working directory
+WORKDIR /var/www
+
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
+    build-essential \
+    libfreetype6-dev \
+    locales \
     zip \
-    libzip-dev \
-    git \
     unzip \
-    && docker-php-ext-install zip
+    git \
+    curl \
+    libonig-dev \
+    libzip-dev \
+    libssl-dev \
+    pkg-config
 
-# Set the working directory inside the container
-WORKDIR /var/www/html
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Copy Composer from the official Composer image
+# Install PHP extensions
+RUN docker-php-ext-install mbstring exif pcntl
+
+# Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy the project files into the container
-COPY . /var/www/html
+# Copy existing application directory contents
+COPY . /var/www
 
-# Fix permissions for the project directory
-RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
+# Copy existing application directory permissions
+COPY --chown=www-data:www-data . /var/www
 
-# Install PHP dependencies with Composer, allowing for network access and using the cache
-RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --ignore-platform-reqs
+# Change current user to www
+USER www-data
 
+
+# Install PHP dependencies
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 # Expose port 8080
 EXPOSE 8080
 
