@@ -1,8 +1,8 @@
 # Use an official PHP CLI runtime as a parent image
-FROM php:8.2-cli
+FROM php:8.3-fpm
 
 # Set working directory
-WORKDIR /var/www/html
+WORKDIR /var/www
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -26,13 +26,13 @@ RUN docker-php-ext-install mbstring exif pcntl pdo pdo_mysql zip
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy project files and set permissions
-COPY --chown=www-data:www-data . /var/www/html
+COPY --chown=www-data:www-data . /var/www
 
 # Set permissions for the www-data user
-RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
+RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www
 
 # Switch to www-data user
-USER www-data
+#USER www-data
 
 # Install PHP dependencies using Composer
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader

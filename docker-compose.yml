@@ -5,6 +5,8 @@ services:
     build:
       context: ./user-service
       dockerfile: Dockerfile
+    restart: unless-stopped
+    working_dir: /var/www
     ports:
       - "8080:8080"
     environment:
@@ -13,7 +15,9 @@ services:
       - STATIC_API_KEY=b63d5a16-c20d-41b5-94d8-3d66a6490c95
       - STORAGE_DRIVER=static
     volumes:
-      - ./user-service:/var/www/html
+      - ./user-service:/var/www
+      - user-service-vendor:/var/www/vendor
+      - user-service-storage:/var/www/storage
   
 
   kong-database:
@@ -57,3 +61,8 @@ services:
       curl -i -X POST http://localhost:8001/consumers --data 'username=user-service-consumer' &&
       curl -i -X POST http://localhost:8001/consumers/user-service-consumer/key-auth --data 'key=b63d5a16-c20d-41b5-94d8-3d66a6490c95'
       "
+volumes:
+  user-service-vendor:
+    driver: local
+  user-service-storage:
+    driver: local
