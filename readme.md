@@ -52,10 +52,7 @@ curl --location 'http://localhost:8000/user-service/users/1111' \
 ```
 
 ## Testing the user service
-- Navigate to the user-service microservice's root directory 
-```
-> cd user-service
-```
+- SSH to the docker container of user-service to run the tests
 
 - Run the tests, by executing below command
 ```
