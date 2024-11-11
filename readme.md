@@ -1,4 +1,4 @@
-#Project setup and starting
+## Project setup and starting
 
 ```
 # navigate to project folder and run this command
@@ -17,17 +17,21 @@ curl -i -X POST http://localhost:8001/services \
 
 curl -i -X POST http://localhost:8001/services/user-service/routes \
   --data "paths[]=/user-service"
+```
 
+## Enable plugin for key based authentication
 
-#Enable plugin for key based authentication
+```
 curl -i -X POST http://localhost:8001/services/user-service/plugins \
   --data "name=key-auth"
 
 #create consumer
 curl -i -X POST http://localhost:8001/consumers \
   --data "username=user-service-consumer"
+```
+## setup API KEY, you can pass your own custom static api key
 
-#setup API KEY, you can pass your own custom static api key
+```
 curl -i -X POST http://localhost:8001/consumers/user-service-consumer/key-auth \
   --data "key=b63d5a16-c20d-41b5-94d8-3d66a6490c95"
 
@@ -46,6 +50,19 @@ curl --location 'http://localhost:8000/user-service/users/1111' \
 --header 'apiKey: b63d5a16-c20d-41b5-94d8-3d66a6490c95'
 
   ```
+
+## Testing the user service
+- navigate to the user-service microservice's root directory 
+```
+> cd user-service
+```
+
+- Run the tests, by executing below command
+```
+> vendor/bin/phpunit
+
+```
+
 
 
 
