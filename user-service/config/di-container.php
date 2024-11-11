@@ -3,7 +3,6 @@
 use App\Http\Controllers\UsersController;
 use App\Http\Middlewares\AuthMiddleware;
 use App\Repositories\User\ArrayUserRepoitory;
-use App\Repositories\User\DBUserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Services\Auth\AuthServiceInterface;
 use App\Services\Auth\StaticTokenAuthService;

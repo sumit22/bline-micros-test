@@ -1,8 +1,8 @@
-# Use an official PHP runtime as a parent image
-FROM php:8.3-fpm
+# Use an official PHP CLI runtime as a parent image
+FROM php:8.2-cli
 
 # Set working directory
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -16,31 +16,29 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libzip-dev \
     libssl-dev \
-    pkg-config
-
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+    pkg-config \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
-RUN docker-php-ext-install mbstring exif pcntl
+RUN docker-php-ext-install mbstring exif pcntl pdo pdo_mysql zip
 
-# Install Composer
+# Install Composer globally
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy existing application directory contents
-COPY . /var/www
+# Copy project files and set permissions
+COPY --chown=www-data:www-data . /var/www/html
 
-# Copy existing application directory permissions
-COPY --chown=www-data:www-data . /var/www
+# Set permissions for the www-data user
+RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
 
-# Change current user to www
+# Switch to www-data user
 USER www-data
 
-
-# Install PHP dependencies
+# Install PHP dependencies using Composer
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
-# Expose port 8080
+
+# Expose port 8080 for PHP’s built-in server
 EXPOSE 8080
 
-# Start the Slim application using PHP's built-in server
+# Start the Slim application using PHP’s built-in server
 CMD ["php", "-S", "0.0.0.0:8080", "-t", "public"]
